@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: swift
+  name: swift
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      labels:
+        app: swift
+    spec:
+      containers:
+      - args:
+        - run
+        - --v=3
+        - --connector=incluster
+        image: appscode/swift:0.5.1
+        imagePullPolicy: Always
+        name: swift
+        ports:
+        - containerPort: 9855
+          name: pt
+          protocol: TCP
+        - containerPort: 50055
+          name: tls
+          protocol: TCP
+        - containerPort: 56790
+          name: ops
+          protocol: TCP
+        volumeMounts:
+            - mountPath: /tmp
+              name: chart-volume
+      volumes:
+        - name: chart-volume
+          emptyDir: {}
