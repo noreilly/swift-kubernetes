@@ -44,7 +44,7 @@ metadata:
   labels:
     app: swift
 spec:
-  type: LoadBalancer  
+  
   ports:
   - name: pt
     port: 9855
@@ -57,3 +57,4 @@ spec:
     targetPort: ops
   selector:
     app: swift
+  type: LoadBalancer  
